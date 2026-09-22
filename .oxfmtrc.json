@@ -1,0 +1,37 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"useTabs": true,
+	"semi": true,
+	"singleQuote": false,
+	"quoteProps": "consistent",
+	"arrowParens": "avoid",
+	"sortPackageJson": false,
+	"sortImports": {
+		"ignoreCase": true,
+		"newlinesBetween": true,
+		"groups": [["builtin", "external"], ["internal"], ["parent", "sibling", "index"], ["type"]],
+		"order": "asc"
+	},
+	"sortTailwindcss": {
+		"stylesheet": "./app/assets/css/main.css",
+		"attributes": ["class"],
+		"functions": ["clsx", "cn"],
+		"preserveDuplicates": false,
+		"preserveWhitespace": false
+	},
+	"ignorePatterns": [
+		".output/**",
+		".nuxt/**",
+		".nitro/**",
+		".agents/**",
+		".cache/**",
+		"public/**",
+		".data/**",
+		"dist/**",
+		"node_modules/**",
+		"coverage/**",
+		"playwright-report/**",
+		"test-results/**",
+		"bun.lock"
+	]
+}

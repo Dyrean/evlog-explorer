@@ -1,0 +1,45 @@
+{
+	"name": "evlog-explorer",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare",
+		"prepare": "simple-git-hooks",
+		"lint-staged": "lint-staged",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
+		"format": "oxfmt --write .",
+		"format:check": "oxfmt --check .",
+		"typecheck": "nuxt typecheck"
+	},
+	"dependencies": {
+		"@iconify-json/lucide": "^1.2.135",
+		"@nuxt/ui": "^4.11.1",
+		"@vueuse/integrations": "^15.0.0",
+		"fuse.js": "^7.5.0",
+		"nuxt": "^4.5.2",
+		"tailwindcss": "^4.3.3"
+	},
+	"devDependencies": {
+		"lint-staged": "^17.5.1",
+		"oxfmt": "^0.69.0",
+		"oxlint": "^1.84.0",
+		"simple-git-hooks": "^2.14.0",
+		"typescript": "^6.0.3",
+		"vue-tsc": "^3.3.11"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "pnpm lint-staged"
+	},
+	"lint-staged": {
+		"*.{js,mjs,cjs,ts,mts,cts,jsx,tsx,vue}": [
+			"oxlint --fix",
+			"oxfmt --write"
+		],
+		"*.{json,jsonc,yaml,yml,css,scss,html,md}": "oxfmt --write"
+	},
+	"packageManager": "pnpm@12.5.1"
+}
