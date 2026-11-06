@@ -2,17 +2,147 @@
 @import "@nuxt/ui";
 
 @theme static {
-	--font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+	--font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", "Liberation Mono", monospace;
+}
 
-	--color-green-50: #effdf5;
-	--color-green-100: #d9fbe8;
-	--color-green-200: #b3f5d1;
-	--color-green-300: #75edae;
-	--color-green-400: #00dc82;
-	--color-green-500: #00c16a;
-	--color-green-600: #00a155;
-	--color-green-700: #007f45;
-	--color-green-800: #016538;
-	--color-green-900: #0a5331;
-	--color-green-950: #052e16;
+/* Nuxt UI semantic tokens keep controls, overlays, and JSON syntax in sync. */
+:root,
+.light {
+	color-scheme: light;
+	--ui-primary: var(--ui-color-primary-700);
+	--ui-success: var(--ui-color-success-700);
+	--ui-info: var(--ui-color-info-700);
+	--ui-warning: var(--ui-color-warning-800);
+	--ui-error: var(--ui-color-error-700);
+	--ui-text-dimmed: #64748b;
+	--ui-text-muted: #526177;
+	--ui-text-toned: #3e4e64;
+	--ui-text: #334155;
+	--ui-text-highlighted: #152238;
+	--ui-text-inverted: #ffffff;
+	--ui-bg: #ffffff;
+	--ui-bg-muted: #f6f8fb;
+	--ui-bg-elevated: #edf2f7;
+	--ui-bg-accented: #e1e8f0;
+	--ui-border: #dce4ee;
+	--ui-border-muted: #eaf0f6;
+	--ui-border-accented: #bdcbdc;
+	--explorer-workspace: #f0f4f8;
+	--explorer-primary-hover: var(--ui-color-primary-800);
+	--explorer-primary-active: var(--ui-color-primary-900);
+	--explorer-inspector: #f8fafc;
+	--explorer-row-selected: #e5f3f1;
+	--explorer-row-selected-hover: #d8eeeb;
+	--explorer-shadow: 0 1px 2px rgb(15 23 42 / 3%);
+}
+
+.dark {
+	color-scheme: dark;
+	--ui-primary: var(--ui-color-primary-300);
+	--ui-success: var(--ui-color-success-400);
+	--ui-info: var(--ui-color-info-400);
+	--ui-warning: var(--ui-color-warning-400);
+	--ui-error: var(--ui-color-error-400);
+	--ui-text-dimmed: #94a3b8;
+	--ui-text-muted: #a4b2c6;
+	--ui-text-toned: #c0ccdc;
+	--ui-text: #d5deea;
+	--ui-text-highlighted: #eff4fc;
+	--ui-text-inverted: #0b2021;
+	--ui-bg: #111a27;
+	--ui-bg-muted: #0e1622;
+	--ui-bg-elevated: #1b283a;
+	--ui-bg-accented: #2a3b51;
+	--ui-border: #29384d;
+	--ui-border-muted: #1d2b3d;
+	--ui-border-accented: #435671;
+	--explorer-workspace: #0b111b;
+	--explorer-primary-hover: var(--ui-color-primary-200);
+	--explorer-primary-active: var(--ui-color-primary-100);
+	--explorer-inspector: #0e1724;
+	--explorer-row-selected: #173538;
+	--explorer-row-selected-hover: #1b4242;
+	--explorer-shadow: 0 1px 2px rgb(0 0 0 / 12%);
+}
+
+@layer base {
+	body {
+		@apply antialiased;
+		background: var(--explorer-workspace);
+	}
+	::selection {
+		background: color-mix(in srgb, var(--ui-primary) 22%, transparent);
+	}
+	button:not(:disabled),
+	[role="button"]:not([aria-disabled="true"]),
+	summary {
+		cursor: pointer;
+	}
+	:where(button, a, summary, input, [tabindex]):focus-visible {
+		outline: 2px solid var(--ui-primary);
+		outline-offset: 3px;
+	}
+	:where(code, time, .font-mono) {
+		font-variant-numeric: tabular-nums;
+	}
+	* {
+		scrollbar-width: thin;
+		scrollbar-color: var(--ui-border-accented) transparent;
+	}
+}
+
+@layer components {
+	.explorer-shell {
+		background: var(--explorer-workspace);
+	}
+	.explorer-header {
+		@apply bg-default;
+		box-shadow: var(--explorer-shadow);
+	}
+	.explorer-toolbar {
+		@apply bg-default;
+	}
+	.explorer-overview {
+		background: var(--explorer-workspace);
+	}
+	.explorer-inspector {
+		background: var(--explorer-inspector);
+	}
+	.explorer-inspector-header {
+		@apply bg-default;
+	}
+	.explorer-json {
+		@apply rounded-xl border border-default bg-default p-3;
+	}
+	.metric {
+		@apply min-w-0 rounded-xl border border-default bg-default px-3 py-3 text-left;
+		box-shadow: var(--explorer-shadow);
+	}
+	button.metric {
+		@apply hover:border-accented motion-safe:transition-colors;
+	}
+	.metric > span {
+		@apply block truncate text-[10px] font-semibold tracking-wider text-muted uppercase;
+	}
+	.metric > strong {
+		@apply mt-1.5 block text-xl font-semibold tracking-tight tabular-nums;
+	}
+	.filter-label {
+		@apply flex flex-col gap-1.5 text-[11px] font-medium text-muted;
+	}
+	.date-input {
+		@apply mt-1 block rounded-lg border border-default bg-default px-3 py-2 text-sm text-highlighted;
+	}
+}
+
+/* Keep selection above the table's generated hover utilities. */
+@layer utilities {
+	.log-table [data-slot="tr"].log-row-selected {
+		background: var(--explorer-row-selected);
+		box-shadow: inset 3px 0 var(--ui-primary);
+	}
+	.log-table [data-slot="tr"].log-row-selected:hover {
+		background: var(--explorer-row-selected-hover);
+	}
 }

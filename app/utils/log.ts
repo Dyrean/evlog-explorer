@@ -32,6 +32,14 @@ const FIELD_PATHS = {
 	],
 	requestId: ["requestId", "request_id", "request.id", "context.requestId", "correlationId"],
 	traceId: ["traceId", "trace_id", "trace.id", "context.traceId"],
+	sessionId: [
+		"session.id",
+		"sessionId",
+		"session_id",
+		"context.sessionId",
+		"context.session.id",
+		"sid",
+	],
 	userId: ["userId", "user_id", "user.id", "context.userId"],
 	why: ["why", "error.why"],
 	fix: ["fix", "error.fix"],
@@ -135,6 +143,13 @@ export const getRequestId = (event: Readonly<Record<string, unknown>>): string |
 /** Return the trace ID when present. */
 export const getTraceId = (event: Readonly<Record<string, unknown>>): string | undefined =>
 	text(valueAt(event, FIELD_PATHS.traceId));
+/** Read an already logged session ID, including a decoded JWT sid. */
+export function getSessionId(event: Readonly<Record<string, unknown>>): string | undefined {
+	for (const path of FIELD_PATHS.sessionId) {
+		const value = valueAt(event, [path]);
+		if (typeof value === "string" && value.trim()) return value;
+	}
+}
 /** Return the user ID when present. */
 export const getUserId = (event: Readonly<Record<string, unknown>>): string | undefined =>
 	text(valueAt(event, FIELD_PATHS.userId));
@@ -158,6 +173,7 @@ export function toLogEventView(event: ImportedLogEvent): LogEventView {
 		duration: getDuration(event.raw),
 		requestId: getRequestId(event.raw),
 		traceId: getTraceId(event.raw),
+		sessionId: getSessionId(event.raw),
 		userId: getUserId(event.raw),
 		why: getWhy(event.raw),
 		fix: getFix(event.raw),

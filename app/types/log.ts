@@ -18,6 +18,8 @@ export interface ImportError {
 /** Canonical levels understood by the explorer. */
 export type LogLevel = "trace" | "debug" | "info" | "warn" | "error" | "fatal" | "unknown";
 
+export type CorrelationField = "requestId" | "traceId" | "sessionId";
+
 /** Values projected from an imported event for display and filtering. */
 export interface LogEventView extends ImportedLogEvent {
 	readonly timestamp?: number;
@@ -29,6 +31,7 @@ export interface LogEventView extends ImportedLogEvent {
 	readonly duration?: number;
 	readonly requestId?: string;
 	readonly traceId?: string;
+	readonly sessionId?: string;
 	readonly userId?: string;
 	readonly why?: unknown;
 	readonly fix?: unknown;

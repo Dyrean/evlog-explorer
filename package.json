@@ -16,20 +16,20 @@
 		"typecheck": "nuxt typecheck"
 	},
 	"dependencies": {
-		"@iconify-json/lucide": "^1.2.135",
-		"@nuxt/ui": "^4.11.1",
+		"@iconify-json/lucide": "^1.2.151",
+		"@nuxt/ui": "^4.12.0",
 		"@vueuse/integrations": "^15.0.0",
 		"fuse.js": "^7.5.0",
-		"nuxt": "^4.5.2",
-		"tailwindcss": "^4.3.3"
+		"nuxt": "^4.6.4",
+		"tailwindcss": "^4.3.4"
 	},
 	"devDependencies": {
-		"lint-staged": "^17.5.1",
+		"lint-staged": "^17.6.0",
 		"oxfmt": "^0.69.0",
-		"oxlint": "^1.84.0",
+		"oxlint": "^1.91.0",
 		"simple-git-hooks": "^2.14.0",
 		"typescript": "^6.0.3",
-		"vue-tsc": "^3.3.11"
+		"vue-tsc": "^3.3.14"
 	},
 	"simple-git-hooks": {
 		"pre-commit": "pnpm lint-staged"
